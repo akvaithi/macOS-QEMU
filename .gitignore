@@ -1,0 +1,6 @@
+*.qcow2
+*.img
+*.fd
+*.dmg
+*.zip
+.DS_Store

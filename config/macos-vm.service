@@ -1,0 +1,16 @@
+[Unit]
+Description=macOS 15 Sequoia VM (QEMU/KVM + OpenCore)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStartPre=/bin/sh -c 'modprobe kvm_amd 2>/dev/null; echo 1 > /sys/module/kvm/parameters/ignore_msrs'
+ExecStart=/bin/sh /DATA/VM/macos/run-macos.sh
+Restart=no
+ExecStopPost=/bin/sh -c 'ip link del macvtap0 2>/dev/null || true'
+KillSignal=SIGTERM
+TimeoutStopSec=90
+
+[Install]
+WantedBy=multi-user.target
